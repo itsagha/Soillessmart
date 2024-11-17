@@ -78,6 +78,17 @@ export default function Login() {
             >
               Login now
             </button>
+
+            {/* button login as admin */}
+            <button 
+              className="w-full p-2.5 text-sm border border-solid border-primary text-primary rounded-xl mb-4 loginBtn"
+            >
+              <Link to="/profileadmin">
+              Login as admin
+              </Link>
+            </button>
+            
+            {/* garis abu-abu */}
             <div className="flex items-center gap-2 mb-4">
               <div className="flex-grow h-0.5 bg-tertiary rounded-lg"></div>
               <p className="text-sm text-tertiary whitespace-nowrap">or login with</p>

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import LayoutDetailKursus from './LayoutDetailKursus';
 
 export default function HomeKursus() {
   const boxes = [

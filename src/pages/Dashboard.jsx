@@ -1,7 +1,19 @@
 import React, { useState } from 'react';
+import { useUser } from '../information/UserContext';
 
 export default function Dashboard() {
   const [profilePicture, setProfilePicture] = useState('/images/home/profpict.jpg'); // default img
+  const userInfo = useUser(); // ambil data user dari UserContext
+  const [isEditing, setIsEditing] = useState(false);
+
+
+  const [editedUserInfo, setEditedUserInfo] = useState({
+    name: userInfo.name,
+    email: userInfo.email,
+    password: userInfo.password,
+    dom: userInfo.dom,
+    number: userInfo.number,
+  });
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -14,17 +26,25 @@ export default function Dashboard() {
     }
   };
 
-  let userInfo = [
-    { label: 'Name', value: 'John Doe' },
-    { label: 'Email', value: 'johndoe000@gmail.com' },
-    { label: 'Password', value: 'admin1234' },
-  ];
+  const handleEditChange = (field, value) => {
+    setEditedUserInfo((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
+
+  const handleSave = () => {
+    // nanti ganti logic ngesave profile disini
+    setIsEditing(false);
+    console.log('Informasi pengguna yang diperbarui:', editedUserInfo);
+  };
 
   return (
     <>
       <div className='flex flex-col items-center justify-center'>
-        <h1 className='font-bold text-secondary text-3xl pt-24 pb-20'>Akun Saya</h1>
+        <h1 className='font-bold text-secondary text-3xl mt-48 mb-24'>Akun Saya</h1>
 
+        {/* Foto Profil */}
         <div className="relative">
           <img
             src={profilePicture}
@@ -42,19 +62,50 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Informasi user */}
-      <div className='flex flex-col justify-start mx-32 pt-10 pb-60 gap-3'>
+      {/* Informasi User */}
+      <div className='flex flex-col justify-start mx-32 pb-60 gap-3'>
         <p className='text-sm text-tertiary pb-9'>
           <i>Klik foto profil anda untuk mengubah foto profil</i>
         </p>
-        {userInfo.map((info, index) => (
-          <div key={index}>
-            <p className='text-tertiary text-sm pt-4'>{info.label} <br />
-              <span className='text-secondary text-base'>{info.value}</span>
+
+        {/* Display Informasi User */}
+        {Object.keys(editedUserInfo).map((key) => (
+          <div key={key}>
+            <p className='text-tertiary text-sm pt-4'>
+              {key === 'dom' ? 'Tanggal Lahir' : key.charAt(0).toUpperCase() + key.slice(1)} <br />
+              {isEditing ? (
+                <input
+                  type="text"
+                  value={editedUserInfo[key]}
+                  onChange={(e) => handleEditChange(key, e.target.value)}
+                  className="border rounded-md p-1 text-base text-secondary w-full"
+                />
+              ) : (
+                <span className='text-secondary text-base'>{editedUserInfo[key]}</span>
+              )}
             </p>
             <div className='w-full h-px rounded-md bg-tertiary opacity-50'></div>
           </div>
         ))}
+
+        {/* button edit & simpan */}
+        <div className=" mt-4">
+          {isEditing ? (
+            <button
+              className="border border-primary text-primary px-4 py-2 rounded-md hover:bg-primary hover:text-white duration-300 ease-out"
+              onClick={handleSave}
+            >
+              Simpan
+            </button>
+          ) : (
+            <button
+              className="border border-primary text-primary px-4 py-2 rounded-md hover:bg-primary hover:text-white duration-300 ease-out"
+              onClick={() => setIsEditing(true)}
+            >
+              Edit
+            </button>
+          )}
+        </div>
       </div>
     </>
   );

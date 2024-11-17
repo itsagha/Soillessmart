@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-export default function Navbar({isLoggedIn}, props) {
+export default function Navbar({ isLoggedIn = true }, props) {
   if (isLoggedIn) {
     return (
         <div className='nav'>
@@ -14,7 +14,7 @@ export default function Navbar({isLoggedIn}, props) {
             </ul>
 
             <div className="flex items-center gap-20">
-                {/* Shopping Cart */}
+                {/* Shopping Cart/Course yang udah dibeli user */}
                 <Link to="mycourse">
                 <svg
                     viewBox="0 0 576 512"
@@ -29,6 +29,7 @@ export default function Navbar({isLoggedIn}, props) {
 
                 {/* Ke halaman dashboard user */}
                 <Link to="dashboard">
+                    {/* pas develop BE, srcnya ganti pake profpict user */}
                     <img src="/images/home/profpict.jpg" alt="" className='w-10 h-10 rounded-full object-cover' />
                 </Link>
             </div>

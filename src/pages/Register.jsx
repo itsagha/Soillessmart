@@ -44,7 +44,7 @@ export default function Register() {
             </div>
 
             {/* password */}
-            <div className="mb-6 relative">
+            <div className="mb-4 relative">
               <input 
                 type={showPassword ? 'text' : 'password'} 
                 id="password" 
@@ -82,12 +82,43 @@ export default function Register() {
               </div>
             </div>
             
+            {/*  no telepon */}
+            <div className="mb-4">
+              <input 
+                type="number" 
+                id="number" 
+                placeholder="number" 
+                className="w-full p-2 border border-gray-300 rounded-xl placeholder:text-sm"
+                required
+              />
+            </div>
+
+            {/* provinsi */}
+            <div className="mb-6">
+              <input 
+                type="province" 
+                id="province" 
+                placeholder="Province" 
+                className="w-full p-2 border border-gray-300 rounded-xl placeholder:text-sm"
+                required
+              />
+            </div>
+
             {/* button sign up */}
             <button 
               type="submit" 
               className="w-full flex items-center justify-center p-2.5 bg-primary border-primary text-white rounded-xl mb-4 text-sm signupBtn"
             >
               Sign Up
+            </button>
+            {/* button sign up as admin */}
+            <button
+              type="submit" 
+              className="w-full flex items-center justify-center p-2.5 bg-primary border-primary text-white rounded-xl mb-4 text-sm signupBtn"
+            >
+              <Link to="/profileadmin">
+              Sign Up as Admin
+              </Link>
             </button>
 
             <p className='text-tertiary text-sm text-center'>Have an account?

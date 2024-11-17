@@ -31,7 +31,7 @@ export default function CommunityPost( props) {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
+    <div className="bg-white rounded-lg shadow-2xl p-6 mb-8">
         {/* Header */}
         <div className="flex items-center mb-4">
           <img
@@ -58,6 +58,8 @@ export default function CommunityPost( props) {
 
         {/* btn like & comment */}
         <div className="flex items-center justify-between mb-4">
+
+          {/* btn like */}
           <button
             className="flex items-center text-tertiary duration-300 ease-out hover:text-red-500"
             onClick={handleLike}
@@ -75,6 +77,7 @@ export default function CommunityPost( props) {
             {likes}
           </button>
 
+          {/* button show comment */}
           <button
             className="flex items-center text-tertiary duration-300 ease-out hover:text-primary"
             onClick={toggleComments}
@@ -111,6 +114,8 @@ export default function CommunityPost( props) {
               className="w-full mt-2 p-2 border rounded-lg text-sm focus:outline-none focus:border-primary"
               onChange={handleCommentChange}
             />
+
+            {/* btn kirim komen */}
             <button
               className="text-sm bg-primary text-white px-4 py-2 rounded-lg mt-2 transition-transform duration-300 ease-out transform hover:scale-105"
               onClick={handleAddComment}

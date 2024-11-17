@@ -5,22 +5,61 @@ export default function LayoutDetailKursus() {
         window.scrollTo(0, 0);
     }, []);
 
-    let [reviews, setReviews] = useState([
+    // function handle payment midtrans di button "bayar sekarang"
+    const handlePayment = async () => {
+        try {
+            // manggil API backend untuk membuat transaksi, nanti pas develop BE ganti pake api sendiri
+            const response = await fetch('/api/create-transaction', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    amount: 100000, // contoh total harga
+                }),
+            });
+    
+            const { token } = await response.json();
+    
+            // manggil snap midtrans buat nampilin halaman pembayaran
+            window.snap.pay(token, {
+                onSuccess: function(result) {
+                    alert('Pembayaran berhasil!');
+                    console.log(result);
+                },
+                onPending: function(result) {
+                    alert('Menunggu pembayaran...');
+                    console.log(result);
+                },
+                onError: function(result) {
+                    alert('Pembayaran gagal!');
+                    console.log(result);
+                },
+            });
+        } catch (error) {
+            console.error('Error saat memproses pembayaran:', error);
+        }
+    };
+
+    // buat contoh
+    const [reviews, setReviews] = useState([
         { id: 1, name: 'Mas rusdi', content: 'Kursus yang sangat informatif!' },
         { id: 2, name: 'Si imut', content: 'Worth it bgt buat harga segini' },
         { id: 3, name: 'Mas amba', content: 'Materi ga jelas' },
         { id: 4, name: 'Pengguna yang mungkin anda kenal', content: 'enak nih cara mentornya ngajarin' },
     ]);
-    let [newReview, setNewReview] = useState('');
-    let [showAll, setShowAll] = useState(false);
+
+    // code di bawah buat komentar, jangan lupa buat codingan nampilin komentar & nyimpen komentar baru ke db
+    const [newReview, setNewReview] = useState('');
+    const [showAll, setShowAll] = useState(false);
     
-    let handleInputChange = (e) => {
+    const handleInputChange = (e) => {
         setNewReview(e.target.value);
     };
 
-    let handleSubmitReview = () => {
+    const handleSubmitReview = () => {
         if (newReview.trim() !== '') {
-            let newReviewObj = {
+            const newReviewObj = {
                 id: reviews.length + 1,
                 name: 'Anonim', // nanti ubah pake nama user yg login
                 content: newReview,
@@ -30,7 +69,7 @@ export default function LayoutDetailKursus() {
         }
     };
 
-    let displayedReviews = showAll ? reviews : reviews.slice(0, 2);
+    const displayedReviews = showAll ? reviews : reviews.slice(0, 2);
 
     return (
         <>
@@ -106,18 +145,22 @@ export default function LayoutDetailKursus() {
                             <p>Harga</p>
                             <p className='font-bold'>Rp15.000</p>
                         </div>
-                        <button className='w-full bg-primary text-sm px-4 py-2 text-white rounded-xl transition-transform duration-300 ease-out transform hover:scale-105 flex items-center justify-center'>
+                        <button
+                            className='w-full bg-primary text-sm px-4 py-2 text-white rounded-xl transition-transform duration-300 ease-out transform hover:scale-105 flex items-center justify-center'
+                            onClick={handlePayment}
+                        >
                             <svg
                                 viewBox="0 0 576 512"
                                 fill="currentColor"
                                 height="1em"
                                 width="1em"
-                                className="inline mr-2" 
+                                className="inline mr-2"
                             >
                                 <path d="M0 24C0 10.7 10.7 0 24 0h72c11.5 0 21.4 8.2 23.6 19.5L122 32h190v102.1l-23-23c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0l64-64c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-23 23V32h181.7c21.2 0 36.5 20.3 30.8 40.7l-54 192c-3.9 13.8-16.5 23.3-30.8 23.3h-317l9.1 48H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H160c-11.5 0-21.4-8.2-23.6-19.5L76.1 48H24C10.7 48 0 37.3 0 24zm224 440c0 26.5-21.5 48-48 48s-48-21.5-48-48 21.5-48 48-48 48 21.5 48 48zm240 48c-26.5 0-48-21.5-48-48s21.5-48 48-48 48 21.5 48 48-21.5 48-48 48z" />
                             </svg>
                             Beli Sekarang
                         </button>
+
 
                         <div className='flex justify-between text-tertiary text-sm'>
                             <p>Terjual</p>
