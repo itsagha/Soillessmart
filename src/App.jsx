@@ -12,27 +12,32 @@ import LayoutDetailKursus from './components/LayoutDetailKursus';
 import LayoutDetailKomunitas from './components/LayoutDetailKomunitas';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import SidebarAdmin from './components-admin/SidebarAdmin';
-import ManageCourse from './pages-admin/ManageCourse';
-import SaleStats from './pages-admin/SaleStats';
-import UploadCourse from './pages-admin/UploadCourse';
-import ProfileAdmin from './pages-admin/ProfileAdmin';
-import { AdminProvider } from './information/AdminContext';
-import LayoutEditKursus from './components-admin/LayoutEditKursus';
+import SidebarTeacher from './components-teacher/SidebarTeacher';
+import ManageCourse from './pages-teacher/ManageCourse';
+import SaleStats from './pages-teacher/SaleStats';
+import UploadCourse from './pages-teacher/UploadCourse';
+import TeacherProfile from './pages-teacher/TeacherProfile';
+import { TeacherProvider } from './information/TeacherContext';
+import LayoutEditKursus from './components-teacher/LayoutEditKursus';
 import { UserProvider } from './information/UserContext';
 import { CourseProvider } from './information/CourseContext';
+import HomeAdmin from './pages-admin/HomeAdmin'
+import SidebarAdmin from './components-admin/SidebarAdmin';
+import AddNews from './pages-admin/AddNews'
 
 
 function App() {
   const location = useLocation();
   const isAuthPage = location.pathname === '/login' || location.pathname === '/register';
-  const isAdminPage = location.pathname === '/managecourse' || location.pathname === '/salestats' || location.pathname === '/uploadcourse' || location.pathname === '/profileadmin' || location.pathname === '/editkursus';
+  const isTeacherPage = location.pathname === '/managecourse' || location.pathname === '/salestats' || location.pathname === '/uploadcourse' || location.pathname === '/teacherprofile' || location.pathname === '/editkursus';
+  const isAdminPage = location.pathname === '/homeadmin' || location.pathname === '/addnews';
 
   return (
-    <AdminProvider>
+    <TeacherProvider>
       <CourseProvider>
         <UserProvider>
-          {!isAuthPage && !isAdminPage && <Navbar />}
+          {!isAuthPage && !isTeacherPage && !isAdminPage && <Navbar />}
+          {isTeacherPage && <SidebarTeacher />}
           {isAdminPage && <SidebarAdmin />}
           <Routes>
             <Route path='/' element={<Home />} />
@@ -48,13 +53,15 @@ function App() {
             <Route path='managecourse' element={<ManageCourse />} />
             <Route path='salestats' element={<SaleStats />} />
             <Route path='uploadcourse' element={<UploadCourse />} />
-            <Route path='profileadmin' element={<ProfileAdmin />} />
+            <Route path='teacherprofile' element={<TeacherProfile />} />
             <Route path='editkursus' element={<LayoutEditKursus />} />
+            <Route path='homeadmin' element={<HomeAdmin />} />
+            <Route path='addnews' element={<AddNews />} />
           </Routes>
-          {!isAuthPage && !isAdminPage && <Footer />}
+          {!isAuthPage && !isTeacherPage && !isAdminPage && <Footer />}
         </UserProvider>
       </CourseProvider>
-    </AdminProvider>
+    </TeacherProvider>
   );
 }
 

@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import { useAdmin } from '../information/AdminContext';
+import { useTeacher } from '../information/TeacherContext';
 
-export default function ProfileAdmin() {
+export default function TeacherProfile() {
   const [showPassword, setShowPassword] = useState(false);
-  const adminInfo = useAdmin();
+  const teacherInfo = useTeacher();
 
   // Ngeset default isi formnya dari AdminContext yang lagi login di akun ini
   const [profile, setProfile] = useState({
-    name: adminInfo.name,
-    email: adminInfo.email,
-    password: adminInfo.password,
-    dom: adminInfo.dom,
-    country: adminInfo.country,
+    name: teacherInfo.name,
+    email: teacherInfo.email,
+    password: teacherInfo.password,
+    dom: teacherInfo.dom,
+    country: teacherInfo.country,
   });
   
   const handleChange = (e) => {
@@ -34,7 +34,7 @@ export default function ProfileAdmin() {
       <div className='flex flex-col gap-10'>
         <div className='p-16 w-full rounded-3xl shadow-2xl bg-gradient-to-r from-green-400 to-blue-500'>
           <p className='font-bold text-4xl text-white'>
-            Selamat Datang, <i>{adminInfo.name}!</i>
+            Selamat Datang, <i>{teacherInfo.name}!</i>
           </p>
         </div>
 

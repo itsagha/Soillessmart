@@ -1,5 +1,5 @@
 import React from 'react'
-import DiagramPenjualan from '../components-admin/DiagramPenjualan'
+import DiagramPenjualan from '../components-teacher/DiagramPenjualan'
 
 export default function SaleStats(props) {
   return (

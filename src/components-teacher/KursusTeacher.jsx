@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default function KursusAdmin() {
+export default function KursusTeacher() {
   const boxes = [
     { id: 1, title: 'gunakan sistem hidroponik yang modern', imgUrl: '/images/home/blog4.jpg' },
     { id: 2, title: 'pengendalian hama dan penyakit tanaman hidroponik', imgUrl: '/images/home/blog5.jpg' },

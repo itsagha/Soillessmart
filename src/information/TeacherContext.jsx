@@ -1,10 +1,10 @@
 // informasi admin
 import React, { createContext, useContext, useState } from 'react';
 
-const AdminContext = createContext();
+const TeacherContext = createContext();
 
-export function AdminProvider({ children }) {
-  const [adminInfo] = useState({
+export function TeacherProvider({ children }) {
+  const [teacherInfo] = useState({
     name: "Yayan Ruhian",
     dom: "Kalimantan Selatan",
     country: "Indonesia",
@@ -13,12 +13,12 @@ export function AdminProvider({ children }) {
   });
 
   return (
-    <AdminContext.Provider value={adminInfo}>
+    <TeacherContext.Provider value={teacherInfo}>
       {children}
-    </AdminContext.Provider>
+    </TeacherContext.Provider>
   );
 }
 
-export function useAdmin() {
-  return useContext(AdminContext);
+export function useTeacher() {
+  return useContext(TeacherContext);
 }

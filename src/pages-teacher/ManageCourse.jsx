@@ -1,5 +1,5 @@
 import React from 'react'
-import KursusAdmin from '../components-admin/KursusAdmin'
+import KursusTeacher from '../components-teacher/KursusTeacher'
 
 export default function ManageCourse(props) {
   return (
@@ -20,7 +20,7 @@ export default function ManageCourse(props) {
             Kelola Kursus Anda
           </p>
         </div>
-        <KursusAdmin />
+        <KursusTeacher />
         
       </div>
     </div>

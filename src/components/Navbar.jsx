@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-export default function Navbar({ isLoggedIn = true }, props) {
+export default function Navbar({ isLoggedIn }, props) {
   if (isLoggedIn) {
     return (
         <div className='nav'>
