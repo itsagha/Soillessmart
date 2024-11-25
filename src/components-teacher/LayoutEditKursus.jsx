@@ -108,7 +108,7 @@ export default function LayoutEditKursus(props) {
                             Pilih Gambar
                         </label>
                         
-                        {/* Preview gambar setelah diunggah */}
+                        {/* Preview gambar */}
                         {course.imgUrl && (
                             <img src={course.imgUrl} alt='Thumbnail' className='w-60 h-40 mt-4 rounded-xl object-cover' />
                         )}

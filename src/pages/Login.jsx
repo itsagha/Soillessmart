@@ -76,8 +76,8 @@ export default function Login() {
           </div>
 
           {/* Button login */}
-          {/* pas develop BE, tag hapus <Link>nya. kalo mau nyoba ke dashboard teacher, ganti to="/teacherprofile". kalo dashboard admin ganti to="/homeadmin" */}
-          <Link to="/homeadmin">
+          {/* pas develop BE, tag hapus <Link>nya. kalo mau nyoba ke dashboard teacher, ganti to="/teacherprofile". kalo dashboard admin ganti to="/dashboardadmin" */}
+          <Link to="/teacherprofile">
             <button
               type="submit"
               className="w-full p-2.5 text-sm border border-solid border-primary text-primary rounded-xl mb-4 loginBtn"

@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 
-export default function AddNews(props) {
+export default function AddBlog(props) {
     const [news, setNews] = useState({
       title: '',
       content: '',
-      writer: '',
       image: '',
     });
 
@@ -16,16 +15,19 @@ export default function AddNews(props) {
       });
     };
 
-    const handleFileChange = (e) => {
-      setNews({
-        ...news,
-        image: e.target.files[0],
-      });
+    const handleImageChange = (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        setNews({
+          ...news,
+          image: URL.createObjectURL(file),
+        });
+      }
     };
 
     const handleSubmit = (e) => {
       e.preventDefault();
-      // taro logic upload berita ke server atau db
+      // taro logic upload blog ke server atau db
       console.log("News Data:", news);
     };
 
@@ -44,14 +46,14 @@ export default function AddNews(props) {
             <path d="M20 3H4c-1.11 0-2 .89-2 2v14c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V5c0-1.11-.89-2-2-2M5 7h5v6H5V7m14 10H5v-2h14v2m0-4h-7v-2h7v2m0-4h-7V7h7v2z" />
           </svg>
           <p className='font-bold text-4xl text-white'>
-            Upload Berita
+            Upload Blog
           </p>
         </div>
 
         {/* form upload berita */}
-        <form onSubmit={handleSubmit} className='flex flex-col gap-6 bg-white p-8 rounded-3xl shadow-2xl'>
+        <form onSubmit={handleSubmit} className='flex flex-col gap-6 bg-white p-16 rounded-3xl shadow-2xl'>
           <div className='flex flex-col'>
-            <label className='font-semibold'>Judul Berita</label>
+            <label className='font-semibold'>Judul Blog</label>
             <input
               type='text'
               name='title'
@@ -63,9 +65,9 @@ export default function AddNews(props) {
           </div>
 
           <div className='flex flex-col'>
-            <label className='font-semibold'>Isi Berita</label>
+            <label className='font-semibold'>Konten Blog</label>
             <textarea
-              name='desc'
+              name='content'
               value={news.content}
               onChange={handleChange}
               className='border border-gray-300 p-2 rounded-lg w-full'
@@ -74,23 +76,11 @@ export default function AddNews(props) {
           </div>
 
           <div className='flex flex-col'>
-            <label className='font-semibold'>Penulis Berita</label>
-            <input
-              type='text'
-              name='writer'
-              value={news.writer}
-              onChange={handleChange}
-              className='border border-gray-300 p-2 rounded-lg w-full'
-              placeholder='Masukkan Nama Penulis Berita'
-            />
-          </div>
-
-          <div className='flex flex-col'>
             <label className='font-semibold'>Upload Gambar</label>
             <input
               type='file'
               accept='image/*'
-              onChange={handleFileChange}
+              onChange={handleImageChange}
               className='hidden'
               id='imageupload'
             />
@@ -101,17 +91,18 @@ export default function AddNews(props) {
             >
               Pilih Gambar
             </label>
+            {/* preview gambar */}
             {news.image && (
-              <p className='mt-2 text-gray-600'>{title}</p>
+              <img src={news.image} alt="Thumbnail" className='w-60 h-40 mt-4 rounded-xl object-cover'/>
             )}
           </div>
 
-          {/* button upload berita */}
+          {/* button upload blog */}
           <button
             type='submit'
             className='text-sm mt-4 border border-cyan-500 text-cyan-500 py-2 px-4 rounded-lg hover:bg-cyan-500 hover:text-white duration-300 ease-out'
           >
-            Upload Berita
+            Upload Blog
           </button>
         </form>
       </div>
